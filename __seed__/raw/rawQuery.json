@@ -1,0 +1,5 @@
+{
+    "id" : "rawQuery",
+    "description" : "This is an empty template to put raw queries to run before populating database",
+    "query" : ""
+}

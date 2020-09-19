@@ -1,38 +1,20 @@
-const helloWorldPlugin = require("./.engineer/plugins/helloWorld.plugin");
+const resources = require('./.engineer/index')
+const { utilsResources, serverResources, seederResources } = resources
 
-const main = async ()=>{
-
-  let config = {
-    "model" : require('./.engineer/data.json'),
-    "options" : {
-    },
-    "resources" : [
-      {
-        "src" : "./.engineer/files/code.js",
-        "dest" : "./src/code.js"
-      },
-      {
-        "src" : "./.engineer/files/module.js",
-        "dest" : "./src/[id]/[id].module.js",
-        "key" : "model",
-        "if" : (model)=>{
-          return model.code
-        }
-      },
-      {
-        "src" : "./.engineer/files/other.js",
-        "dest" : "./src/[id]/[id].other.js",
-        "key" : "model",
-        "if" : (model)=>{
-          return model.other
-        }
-      }
-    ]
-  }
-
-  config = await helloWorldPlugin(config)
-  return config
-
+const config = {
+  "options" : {
+  },
+  "model" : require("./.engineer/schema.json"),
+  "resources" : [
+    // Utils
+    ...utilsResources(),
+    // Server
+    ...serverResources(),
+    // Seeder
+    ...seederResources()
+    // Add your custom files after this comment
+  ]
 }
 
-module.exports = main()
+
+module.exports = config

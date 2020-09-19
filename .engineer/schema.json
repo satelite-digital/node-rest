@@ -1,0 +1,239 @@
+{
+    "app" : {
+        "scope" : "@satelite",
+        "id" : "node-rest",
+        "name" : "NodeJS REST API template",
+        "host" : "http://localhost:3000"
+    },
+    "model" : [
+        {
+            "id" : "user",
+            "name" : "User",
+            "fields" : [
+                {
+                    "id" : "authId",
+                    "type" : "String",
+                    "options" : {
+                        "optional" : true
+                    }
+                },
+                {
+                    "id" : "email",
+                    "type" : "String",
+                    "options" : {
+                        "unique" : true
+                    }
+                },
+                {
+                    "id" : "name",
+                    "type" : "String"
+                },
+                {
+                    "id" : "picture",
+                    "type" : "String",
+                    "options" : {
+                        "optional" : true
+                    }
+                },
+                {
+                    "id" : "type",
+                    "type" : "UserType"
+                }
+            ],
+            "parents" : [
+                {
+                    "id" : "organization",
+                    "name" : "Organization",
+                    "options" : {
+                        "optional" : true
+                    }
+                }
+            ],
+            "children" : [
+                {
+                    "id" : "post",
+                    "name" : "Post"
+                },
+                {
+                    "id" : "session",
+                    "name" : "Session"
+                }
+            ]
+        },
+        {
+            "id" : "post",
+            "name" : "Post",
+            "options" : {
+                "softDelete" : "isArchived",
+                "log" : {
+                    "logger" : "postLog",
+                    "data" : "post",
+                    "actions" :  [
+                        { "create" : true, "use" : "CREATE" },
+                        { "findOne" : true, "use" : "OPEN" },
+                        { "update" : true, "use" : "UPDATE" },
+                        { "delete" : true, "use" : "DELETE" }
+                    ]
+                }
+            },
+            "fields" : [
+                {
+                    "id" : "title",
+                    "type" : "String"
+                },
+                {
+                    "id" : "description",
+                    "type" : "String",
+                    "options" : {
+                        "optional" : true
+                    }
+                },
+                {
+                    "id" : "body",
+                    "type" : "Json",
+                    "options" : {
+                        "optional" : true
+                    }
+                },
+                {
+                    "id" : "config",
+                    "type" : "Json",
+                    "options" : {
+                        "optional" : true
+                    }
+                },
+                {
+                    "id" : "isPublished",
+                    "type" : "Boolean",
+                    "options" : {
+                        "default" : "false"
+                    }
+                }
+            ],
+            "parents" : [
+                {
+                    "id" : "user",
+                    "name" : "User",
+                    "options" : {
+                        "optional" : true,
+                        "isCreator" : true
+                    }
+                }
+            ],
+            "children" : [
+                {
+                    "id" : "post_log",
+                    "name" : "PostLog"
+                }
+            ]
+        },
+        {
+            "id" : "category",
+            "name" : "Category",
+            "options" : {
+                "softDelete" : "isArchived",
+                "log" : {
+                    "logger" : "categoryLog",
+                    "data" : "category",
+                    "actions" :  [
+                        { "create" : true, "use" : "CREATE" },
+                        { "findOne" : true, "use" : "OPEN" },
+                        { "update" : true, "use" : "UPDATE" },
+                        { "delete" : true, "use" : "DELETE" }
+                    ]
+                }
+            },
+            "fields" : [
+                {
+                    "id" : "title",
+                    "type" : "String"
+                },
+                {
+                    "id" : "coverURL",
+                    "type" : "String"
+                }
+            ],
+            "parents" : [
+                {
+                    "id" : "user",
+                    "name" : "User",
+                    "options" : {
+                        "optional" : true,
+                        "isCreator" : true
+                    }
+                }
+            ],
+            "children" : [
+                {
+                    "id" : "category_log",
+                    "name" : "CategoryLog"
+                }
+            ]
+        },
+        {
+            "id" : "category_log",
+            "name" : "CategoryLog",
+            "fields" : [
+                {
+                    "id" : "action",
+                    "type" : "LogAction"
+                },
+                {
+                    "id" : "record",
+                    "type" : "Json"
+                }
+            ],
+            "parents" : [
+                {
+                    "id" : "user",
+                    "name" : "User"
+                }
+            ]
+        },
+        {
+            "id" : "post_log",
+            "name" : "PostLog",
+            "fields" : [
+                {
+                    "id" : "action",
+                    "type" : "LogAction"
+                },
+                {
+                    "id" : "record",
+                    "type" : "Json"
+                }
+            ],
+            "parents" : [
+                {
+                    "id" : "post",
+                    "name" : "Post"
+                },
+                {
+                    "id" : "user",
+                    "name" : "User"
+                }
+            ]
+        }
+    ],
+    "enums" : [
+        {
+            "name" : "LogAction",
+            "id" : "logaction",
+            "values" : [
+                "OPEN",
+                "DELETE",
+                "UPDATE",
+                "CREATE"
+            ]
+        },
+        {
+            "name" : "UserType",
+            "id" : "usertype",
+            "values" : [
+                "OPERATIVO",
+                "ADMIN",
+                "SUPERVISOR"
+            ]
+        }
+    ]
+}
