@@ -10,8 +10,8 @@ const qs = require('qs')
 const TOOLS = require('./lib/sdk/index');
 
 // Cognito auth service configuration
-const cognitoPool = "us-east-1_tVoVUsvZz"
-const cognitoClient = "6f47om3qjiig43skuhl1mo8m4o"
+const cognitoPool = "us-east-1_roI9fKNg3"
+const cognitoClient = "4um553t26s55rj70fh48dibc4m"
 const apiKey = "NBtXzkcTa11ia8G56C60i4vgatiJQeYE3cK3fUFI"
 
 // Cognito as auth service
