@@ -6,7 +6,13 @@ const findManyService = async (ctx)=>{
         }
 
 
+
+        if('session' in ctx){
+            const multitenancyFilter = { user : {  organizationId : { equals : ctx.session.user.organizationId } } }
+            Object.assign(query.where, multitenancyFilter)
+        }
         
+
         let results = await ctx.db.user.findMany(query);
         
         return results;

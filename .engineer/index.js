@@ -127,6 +127,14 @@ const serverResources = function(){
         "key" : "model"
       },
       {
+        "src" : "./.engineer/files/src/services/entity/delete.service.test.js",
+        "dest" : "./src/services/[id]/delete.service.test.js",
+        "key" : "model",
+        "if" : (entity)=>{
+          return entity.id == 'form'
+        }
+      },
+      {
         "src" : "./.engineer/files/src/services/entity/count.service.js",
         "dest" : "./src/services/[id]/count.service.js",
         "key" : "model"

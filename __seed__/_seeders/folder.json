@@ -1,0 +1,112 @@
+[
+    {
+        "id": "97cfadeb-99e5-4fb8-bb5c-9e9bd1c948ce",
+        "title": "Ventas septiembre",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "151081da-72bb-4a27-8fb1-0a1aedd8ca4b",
+        "title": "Pedidos Agosto",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "27be70a8-e96b-44f3-a39d-807b0e16f11c",
+        "title": "carpeta 2020",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "7b2bfdc0-d1eb-4794-8a82-fbc79627fe35",
+        "title": "sac 3",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "d8a6d365-94d1-4939-82af-2c454812cc41",
+        "title": "desarrollo septiembre",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "f505ec0b-0e7a-4720-b89b-4cc431a33ee0",
+        "title": "carpeta prueba",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "7cfb5541-22f0-4945-94ab-7a4bdd30d2d3",
+        "title": "actualización de nombre",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "38e319d1-3609-40a7-96d5-112a553364b4",
+        "title": "folder nuevo, actualizado",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "443cd2c6-0f41-444a-a158-52a6e64ce759",
+        "title": "Formularios para mostrar",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "6fb712d9-4d18-4c37-9ebf-63d46cce1bf1",
+        "title": "formularios desactualizados",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    },
+    {
+        "id": "46f1b6b7-d93e-43e8-8a7d-296877c3f317",
+        "title": "borradores agosto",
+        "isArchived": false,
+        "user": {
+            "connect" : {
+                "id" : "96c19d6b-afef-429c-94fd-295ff3d2e633"
+            }
+        }
+    }
+]

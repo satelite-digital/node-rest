@@ -9,8 +9,6 @@ const findOneService = async (ctx)=>{
         let results = await ctx.db.user.findMany(query);
 
         
-
-        
         return results[0] ? results[0] : results;
     }catch(err){
         return {

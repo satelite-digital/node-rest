@@ -1,0 +1,34 @@
+[
+    {
+        "email" : "juan.acabal@pentcloud.com",
+        "name" : "Juan Acabal",
+        "type" : "ADMIN"
+    },
+    {
+        "email" : "josue.agustin@pentcloud.com",
+        "name" : "Josue Donis",
+        "type" : "ADMIN"
+    },
+    {
+        "email" : "juan.aldana@pentcloud.com",
+        "name" : "Juan Aldana",
+        "type" : "ADMIN"
+    },
+    {
+        "email" : "luis.gudiel@pentcloud.com",
+        "name" : "Luis Gudiel",
+        "type" : "ADMIN"
+    },
+    {
+        "id": "d14c1570-087f-42c4-9ec0-473209048ad4",
+        "email" : "erick.ruano@pentcloud.com",
+        "name" : "Erick Ruano",
+        "type" : "ADMIN"
+    },
+    {
+        "id": "d14c1570-087f-42c4-9ec0-473209048ad5",
+        "email" : "anahizabel.dubon@pentcloud.com",
+        "name" : "Isabel Dubón",
+        "type" : "ADMIN"
+    }
+]

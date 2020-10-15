@@ -1,0 +1,22 @@
+[
+    {
+        "id": "d09b88fb-c221-4ae8-8c49-7bbd18177694",
+        "endpoint": "https://www.random.org/integers/",
+        "method": "GET",
+        "type": "READ",
+        "headers": [],
+        "body": {},
+        "template" : {},
+        "params": {
+            "col": "1",
+            "max": "10",
+            "min": "1",
+            "num": "1",
+            "rnd": "new",
+            "base": "10",
+            "format": "plain"
+        },
+        "title": "Test",
+        "form": { "connect" : { "id" : "2e1ad3c6-1380-4df9-bdda-9e573e6fcd7b" } }
+    }
+]

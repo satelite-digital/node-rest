@@ -27,10 +27,24 @@ const findManyService = async (ctx)=>{
                 query.where = scope
             }
         }
-                {{/if}}
-            {{/each}}
+        {{/if}}
+        {{/each}}
+        {{/if}}
+
+        {{#if options.hasOrg}}
+        // Multitenancy
+        if('session' in ctx){
+            const multitenancyFilter = { organizationId : { equals : ctx.session.user.organizationId } }
+            Object.assign(query.where, multitenancyFilter)
+        }
+        {{else}}
+        if('session' in ctx){
+            const multitenancyFilter = { user : {  organizationId : { equals : ctx.session.user.organizationId } } }
+            Object.assign(query.where, multitenancyFilter)
+        }
         {{/if}}
         
+
         let results = await ctx.db.{{{id}}}.findMany(query);
         
         return results;

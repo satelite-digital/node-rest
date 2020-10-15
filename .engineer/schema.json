@@ -1,239 +1,576 @@
 {
-    "app" : {
-        "scope" : "@satelite",
-        "id" : "node-rest",
-        "name" : "NodeJS REST API template",
-        "host" : "http://localhost:3000"
-    },
-    "model" : [
-        {
-            "id" : "user",
-            "name" : "User",
-            "fields" : [
-                {
-                    "id" : "authId",
-                    "type" : "String",
-                    "options" : {
-                        "optional" : true
-                    }
-                },
-                {
-                    "id" : "email",
-                    "type" : "String",
-                    "options" : {
-                        "unique" : true
-                    }
-                },
-                {
-                    "id" : "name",
-                    "type" : "String"
-                },
-                {
-                    "id" : "picture",
-                    "type" : "String",
-                    "options" : {
-                        "optional" : true
-                    }
-                },
-                {
-                    "id" : "type",
-                    "type" : "UserType"
-                }
-            ],
-            "parents" : [
-                {
-                    "id" : "organization",
-                    "name" : "Organization",
-                    "options" : {
-                        "optional" : true
-                    }
-                }
-            ],
-            "children" : [
-                {
-                    "id" : "post",
-                    "name" : "Post"
-                },
-                {
-                    "id" : "session",
-                    "name" : "Session"
-                }
-            ]
+        "app": {
+            "id": "formspace-api",
+            "host": "https://formspace-api.vercel.app",
+            "name": "FormSpace API REST",
+            "scope": "@pentcloud"
         },
-        {
-            "id" : "post",
-            "name" : "Post",
-            "options" : {
-                "softDelete" : "isArchived",
-                "log" : {
-                    "logger" : "postLog",
-                    "data" : "post",
-                    "actions" :  [
-                        { "create" : true, "use" : "CREATE" },
-                        { "findOne" : true, "use" : "OPEN" },
-                        { "update" : true, "use" : "UPDATE" },
-                        { "delete" : true, "use" : "DELETE" }
-                    ]
-                }
+        "enums": [
+            {
+                "id": "hooktype",
+                "name": "HookType",
+                "values": [
+                    "WRITE",
+                    "READ"
+                ]
             },
-            "fields" : [
-                {
-                    "id" : "title",
-                    "type" : "String"
-                },
-                {
-                    "id" : "description",
-                    "type" : "String",
-                    "options" : {
-                        "optional" : true
-                    }
-                },
-                {
-                    "id" : "body",
-                    "type" : "Json",
-                    "options" : {
-                        "optional" : true
-                    }
-                },
-                {
-                    "id" : "config",
-                    "type" : "Json",
-                    "options" : {
-                        "optional" : true
-                    }
-                },
-                {
-                    "id" : "isPublished",
-                    "type" : "Boolean",
-                    "options" : {
-                        "default" : "false"
-                    }
-                }
-            ],
-            "parents" : [
-                {
-                    "id" : "user",
-                    "name" : "User",
-                    "options" : {
-                        "optional" : true,
-                        "isCreator" : true
-                    }
-                }
-            ],
-            "children" : [
-                {
-                    "id" : "post_log",
-                    "name" : "PostLog"
-                }
-            ]
-        },
-        {
-            "id" : "category",
-            "name" : "Category",
-            "options" : {
-                "softDelete" : "isArchived",
-                "log" : {
-                    "logger" : "categoryLog",
-                    "data" : "category",
-                    "actions" :  [
-                        { "create" : true, "use" : "CREATE" },
-                        { "findOne" : true, "use" : "OPEN" },
-                        { "update" : true, "use" : "UPDATE" },
-                        { "delete" : true, "use" : "DELETE" }
-                    ]
-                }
+            {
+                "id": "logaction",
+                "name": "LogAction",
+                "values": [
+                    "OPEN",
+                    "FILL",
+                    "DELETE",
+                    "UPDATE",
+                    "CREATE"
+                ]
             },
-            "fields" : [
-                {
-                    "id" : "title",
-                    "type" : "String"
-                },
-                {
-                    "id" : "coverURL",
-                    "type" : "String"
-                }
-            ],
-            "parents" : [
-                {
-                    "id" : "user",
-                    "name" : "User",
-                    "options" : {
-                        "optional" : true,
-                        "isCreator" : true
+            {
+                "id": "usertype",
+                "name": "UserType",
+                "values": [
+                    "OPERATIVO",
+                    "ADMIN",
+                    "SUPERVISOR"
+                ]
+            },
+            {
+                "id": "folderlogaction",
+                "name": "FolderLogAction",
+                "values": [
+                    "OPEN",
+                    "DELETE",
+                    "UPDATE",
+                    "CREATE"
+                ]
+            },
+            {
+                "id": "httpmethod",
+                "name": "HTTPMethod",
+                "values": [
+                    "POST",
+                    "PUT",
+                    "DELETE",
+                    "GET",
+                    "PATCH",
+                    "COPY",
+                    "HEAD",
+                    "OPTIONS",
+                    "LINK",
+                    "UNLINK",
+                    "PURGE",
+                    "LOCK",
+                    "UNLOCK",
+                    "PROPFIND",
+                    "VIEW"
+                ]
+            }
+        ],
+        "model": [
+            {
+                "id": "tenant",
+                "name": "Tenant",
+                "fields": [
+                    {
+                        "id": "title",
+                        "type": "String"
+                    },
+                    {
+                        "id": "description",
+                        "type": "String",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "logo",
+                        "type": "String",
+                        "options": {
+                            "optional": true
+                        }
                     }
-                }
-            ],
-            "children" : [
-                {
-                    "id" : "category_log",
-                    "name" : "CategoryLog"
-                }
-            ]
-        },
-        {
-            "id" : "category_log",
-            "name" : "CategoryLog",
-            "fields" : [
-                {
-                    "id" : "action",
-                    "type" : "LogAction"
+                ],
+                "children": [
+                    {
+                        "id": "user",
+                        "name": "User"
+                    }
+                ]
+            },
+            {
+                "id": "user",
+                "name": "User",
+                "fields": [
+                    {
+                        "id": "authId",
+                        "type": "String",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "email",
+                        "type": "String",
+                        "options": {
+                            "unique": true
+                        }
+                    },
+                    {
+                        "id": "name",
+                        "type": "String"
+                    },
+                    {
+                        "id": "picture",
+                        "type": "String",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "type",
+                        "type": "UserType"
+                    }
+                ],
+                "parents": [
+                    {
+                        "id": "profile",
+                        "name": "Profile",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "tenant",
+                        "name": "Tenant",
+                        "options": {
+                            "optional": true
+                        }
+                    }
+                ],
+                "children": [
+                    {
+                        "id": "session",
+                        "name": "Session"
+                    },
+                    {
+                        "id": "opportunity",
+                        "name": "Opportunity"
+                    }
+                ]
+            },
+            {
+                "id": "profile",
+                "name": "Profile",
+                "fields": [
+                    {
+                        "id": "name",
+                        "type": "String"
+                    },
+                    {
+                        "id": "profile",
+                        "type": "Json"
+                    }
+                ],
+                "children": [
+                    {
+                        "id": "user",
+                        "name": "User"
+                    }
+                ]
+            },
+            {
+                "id": "opportunity",
+                "name": "Opportunity",
+                "fields": [
+                    {
+                        "id": "name",
+                        "type": "String"
+                    },
+                    {
+                        "id": "estimatedDate",
+                        "type": "Date",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "probability",
+                        "type": "Float",
+                        "options": {
+                            "default": 0.0
+                        }
+                    },
+                    {
+                        "id": "detail",
+                        "type": "Json"
+                    },
+                    {
+                        "id": "total",
+                        "type": "Float"
+                    }
+                ],
+                "options": {
+                    "log": {
+                        "data": "opportunity",
+                        "logger": "opportunityLog",
+                        "actions": [
+                            {
+                                "use": "CREATE",
+                                "create": true
+                            },
+                            {
+                                "use": "OPEN",
+                                "findOne": true
+                            },
+                            {
+                                "use": "UPDATE",
+                                "update": true
+                            },
+                            {
+                                "use": "DELETE",
+                                "delete": true
+                            }
+                        ]
+                    },
+                    "softDelete": "isArchived"
                 },
-                {
-                    "id" : "record",
-                    "type" : "Json"
-                }
-            ],
-            "parents" : [
-                {
-                    "id" : "user",
-                    "name" : "User"
-                }
-            ]
-        },
-        {
-            "id" : "post_log",
-            "name" : "PostLog",
-            "fields" : [
-                {
-                    "id" : "action",
-                    "type" : "LogAction"
+                "parents": [
+                    {
+                        "id": "executive",
+                        "name": "User",
+                        "named": "Executive",
+                        "options": {
+                            "namedRelation": "executive"
+                        }
+                    },
+                    {
+                        "id": "contact",
+                        "name": "Contact",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "organization",
+                        "name": "Organization",
+                        "options": {
+                            "optional": true
+                        }
+                    }
+                ],
+                "children": [
+                    {
+                        "id" : "opportunity_log",
+                        "name" : "OpportunityLog"
+                    }
+                ]
+            },
+            {
+                "id": "contact",
+                "name": "Contact",
+                "fields": [
+                    {
+                        "id": "name",
+                        "type": "String"
+                    },
+                    {
+                        "id" : "job",
+                        "type" : "String",
+                        "options" : {
+                            "optional" : true
+                        }
+                    },
+                    {
+                        "id" : "information",
+                        "type" : "Json",
+                        "options" : {
+                            "optional" : true
+                        }
+                    }
+                ],
+                "options": {
+                    "log": {
+                        "data": "contact",
+                        "logger": "contactLog",
+                        "actions": [
+                            {
+                                "use": "CREATE",
+                                "create": true
+                            },
+                            {
+                                "use": "OPEN",
+                                "findOne": true
+                            },
+                            {
+                                "use": "UPDATE",
+                                "update": true
+                            },
+                            {
+                                "use": "DELETE",
+                                "delete": true
+                            }
+                        ]
+                    },
+                    "softDelete": "isArchived"
                 },
-                {
-                    "id" : "record",
-                    "type" : "Json"
-                }
-            ],
-            "parents" : [
-                {
-                    "id" : "post",
-                    "name" : "Post"
+                "parents": [
+                    {
+                        "id": "assigned",
+                        "name": "User",
+                        "named": "Assigned",
+                        "options": {
+                            "namedRelation": "assigned"
+                        }
+                    }
+                ],
+                "children": [
+                    {
+                        "id" : "opportunity",
+                        "name" : "Opportunity"
+                    },
+                    {
+                        "id" : "contact_log",
+                        "name" : "ContactLog"
+                    }
+                ]
+            },
+            {
+                "id": "organization",
+                "name": "Organization",
+                "fields": [
+                    {
+                        "id": "name",
+                        "type": "String"
+                    },
+                    {
+                        "id": "country",
+                        "type": "String",
+                        "options" : {
+                            "optional" : true
+                        }
+                    },
+                    {
+                        "id" : "address",
+                        "type" : "String",
+                        "options" : {
+                            "optional" : true
+                        }
+                    },
+                    {
+                        "id" : "contact",
+                        "type" : "Json",
+                        "options" : {
+                            "optional" : true
+                        }
+                    },
+                    {
+                        "id" : "tags",
+                        "type" : "Json",
+                        "options" : {
+                            "optional" : true
+                        }
+                    }
+                ],
+                "options" : {
+                    "log": {
+                        "data": "contact",
+                        "logger": "contactLog",
+                        "actions": [
+                            {
+                                "use": "CREATE",
+                                "create": true
+                            },
+                            {
+                                "use": "OPEN",
+                                "findOne": true
+                            },
+                            {
+                                "use": "UPDATE",
+                                "update": true
+                            },
+                            {
+                                "use": "DELETE",
+                                "delete": true
+                            }
+                        ]
+                    },
+                    "softDelete": "isArchived"
                 },
-                {
-                    "id" : "user",
-                    "name" : "User"
-                }
-            ]
-        }
-    ],
-    "enums" : [
-        {
-            "name" : "LogAction",
-            "id" : "logaction",
-            "values" : [
-                "OPEN",
-                "DELETE",
-                "UPDATE",
-                "CREATE"
-            ]
-        },
-        {
-            "name" : "UserType",
-            "id" : "usertype",
-            "values" : [
-                "OPERATIVO",
-                "ADMIN",
-                "SUPERVISOR"
-            ]
-        }
-    ]
-}
+                "parents": [
+                    {
+                        "id": "assigned",
+                        "name": "User",
+                        "named": "Assigned",
+                        "options": {
+                            "namedRelation": "assigned"
+                        }
+                    }
+                ],
+                "children": [
+                    {
+                        "id" : "opportunity",
+                        "name" : "Opportunity"
+                    },
+                   {
+                       "id" : "organization_log",
+                       "name" : "OrganizationLog"
+                   }
+                ]
+            },
+            {
+                "id": "opportunity_contact",
+                "name": "OpportunityContact",
+                "fields": [
+                    {
+                        "id" : "role",
+                        "type" : "String"
+                    }
+                ],
+                "parents": [
+                    {
+                        "id": "opportunity",
+                        "name": "Opportunity"
+                    },
+                    {
+                        "id": "contact",
+                        "name": "Contact"
+                    }
+                ]
+            },
+            {
+                "id": "opportunity_log",
+                "name": "OpportunityLog",
+                "fields": [
+                    {
+                        "id": "action",
+                        "type": "LogAction"
+                    },
+                    {
+                        "id": "record",
+                        "type": "Json"
+                    }
+                ],
+                "parents": [
+                    {
+                        "id": "opportunity",
+                        "name": "Form"
+                    },
+                    {
+                        "id": "user",
+                        "name": "User"
+                    }
+                ]
+            },
+            {
+                "id": "contact_log",
+                "name": "ContactLog",
+                "fields": [
+                    {
+                        "id": "action",
+                        "type": "LogAction"
+                    },
+                    {
+                        "id": "record",
+                        "type": "Json"
+                    }
+                ],
+                "parents": [
+                    {
+                        "id": "contact",
+                        "name": "Contact"
+                    },
+                    {
+                        "id": "user",
+                        "name": "User"
+                    }
+                ]
+            },
+            {
+                "id": "organization_log",
+                "name": "OrganizationLog",
+                "fields": [
+                    {
+                        "id": "action",
+                        "type": "LogAction"
+                    },
+                    {
+                        "id": "record",
+                        "type": "Json"
+                    }
+                ],
+                "parents": [
+                    {
+                        "id": "organization",
+                        "name": "Organization"
+                    },
+                    {
+                        "id": "user",
+                        "name": "User"
+                    }
+                ]
+            },
+            {
+                "id": "pivot_state",
+                "name": "PivotState",
+                "fields": [
+                    {
+                        "id": "title",
+                        "type": "String"
+                    },
+                    {
+                        "id": "description",
+                        "type": "String",
+                        "options": {
+                            "optional": true
+                        }
+                    },
+                    {
+                        "id": "state",
+                        "type": "Json"
+                    }
+                ]
+            },
+            {
+                "id" : "flow",
+                "name" : "Flow",
+                "options" : {
+                    "softDelete" : "isArchived"
+                },
+                "fields" : [
+                    {
+                        "id" : "name",
+                        "type" : "String"
+                    }
+                ],
+                "children" : [
+                    {
+                        "id" : "stage",
+                        "name" : "Stage"
+                    }
+                ]
+            },
+            {
+                "id" : "stage",
+                "name" : "Stage",
+                "options" : {
+                    "softDelete" : "isArchived"
+                },
+                "fields" : [
+                    {
+                        "id" : "name",
+                        "type" : "String"
+                    },
+                    {
+                        "id" : "status",
+                        "type" : "Status"
+                    }
+                ],
+                "parents" : [
+                    {
+                        "id" : "flow",
+                        "name" : "Flow"
+                    }
+                ]
+            }
+        ]
+    }

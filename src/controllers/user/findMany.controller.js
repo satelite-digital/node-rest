@@ -1,27 +1,26 @@
+// Imports
 const { user } = require('./../../services')
- 
 const { findManyService } = user
+const { createRequestContext } = require('./../../helpers')
  
 const findManyController = async (req, res, next) => {
-  const { ctx, _query, session } = req
-  const { db } = ctx 
+  
   try {
 
-      let context = {
-        db : {
-          user : db.user
-        },
-        session,
-        query : _query
-      }
-      
+      // Create request context
+      const context = await createRequestContext(req, { ctx : { db : { user : true } }, _query : "query", session : true })
+
+      // Fetch service
       let results = await findManyService(context)
       
+      // Handle results
       if(results.hasOwnProperty('statusCode')){
         res.status(results.statusCode).send(results)
       }else{
         res.send(results)
       }
+
+      // End
       next()
   
     
