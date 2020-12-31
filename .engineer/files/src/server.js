@@ -8,7 +8,6 @@ const express = require('express')
 
 const createServer = (ctx)=>{
 
-
   return express()
   .use(bodyParser.json())
   .use(contextMiddleware(ctx))

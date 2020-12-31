@@ -9,10 +9,6 @@ const duplicateService = async (ctx)=>{
                 if("id" in user){ delete user.id }
                 if("createdAt" in user){ delete user.createdAt }
                 if("updatedAt" in user){ delete user.updatedAt }
-                if("profileId" in user){
-                    user.profile = { connect : { id : user.profileId } }
-                    delete user.profileId
-                } 
                 if("organizationId" in user){
                     user.organization = { connect : { id : user.organizationId } }
                     delete user.organizationId

@@ -113,7 +113,7 @@ const {{id}}DBCreate = async (ctx, data)=>{
         {{/each}}
     {{/if}}
 
-    const result = await ctx.db.{{#if prismaClientName}}{{prismaClientName}}{{else}}{{id}}{{/if}}.create(query)
+    const result = await ctx.db.{{{id}}}.create(query)
 
     return result
 }

@@ -1,26 +1,33 @@
-// Imports
 const { {{{id}}} } = require('./../../services')
+ 
 const { findOneService } = {{{id}}}
-const { createRequestContext } = require('./../../helpers/createRequestContext')
  
 const findOneController = async (req, res, next) => {
 
+  const { ctx, params, _query, session } = req
+  const { db } = ctx 
+
   try {
 
-      // Create request context
-      const context = await createRequestContext(req, { ctx : { db : true }, _query : "query", session : true, params : { ['id-as-target'] : true } })
+      let context = {
+        db : {
+        {{#if options.log}}
+        {{options.log.logger}} : db.{{options.log.logger}},
+        {{/if}}
+          {{{id}}} : db.{{{id}}}
+        },
+        session,
+        target : params.id,
+        query : _query
+      }
 
-      // Fetch Service
       let results = await findOneService(context)
       
-      // Handle results
       if(results.hasOwnProperty('statusCode')){
         res.status(results.statusCode).send(results)
       }else{
         res.send(results)
       }
-
-      // End
       next()
     
   } catch(e) {

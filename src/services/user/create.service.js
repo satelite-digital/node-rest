@@ -12,21 +12,41 @@ const validatePassword = (user)=>{
     }
 }
 
+// const createAuthUser = async (ctx, user)=>{
+//     try{ 
+//         // Create cognito user
+//         let cognitoUser = {
+//             client : ctx.auth.client,
+//             username: user.email,
+//             password: user.password
+//         }
+//         const authUser = await ctx.auth.signup(cognitoUser)
+//         console.log(authUser)
+//         return authUser
+//     }catch(err){
+//         return {
+//             statusCode : 400,
+//             message : "One or more of your requests failed",
+//             error : err
+//         }
+//     }
+// }
+
 const createAuthUser = async (ctx, user)=>{
     try{ 
-        // Create cognito user
-        let cognitoUser = {
-            client : ctx.auth.client,
-            username: user.email,
+        // Create firebase user
+        let firebaseUser = {
+            email: user.email,
             password: user.password
         }
-        const authUser = await ctx.auth.signup(cognitoUser)
-        console.log(authUser)
+
+        const authUser = await ctx.auth.signUp(firebaseUser)
+        
         return authUser
     }catch(err){
         return {
             statusCode : 400,
-            message : "One or more of your requests failed",
+            message : "One or more of your requests failed createAuthUser",
             error : err
         }
     }
@@ -34,7 +54,7 @@ const createAuthUser = async (ctx, user)=>{
 
 
 const createDBUser = async (ctx, user)=>{ 
-    try{
+    // try{
         DBUser = { ...user }
         delete DBUser.password
         let query = {
@@ -45,13 +65,13 @@ const createDBUser = async (ctx, user)=>{
         }
         const result = await ctx.db.user.create(query)
         return result
-    }catch(err){
-        return {
-            statusCode : 400,
-            message : "One or more of your requests failed",
-            error : err
-        }
-    }
+    // }catch(err){
+        // return {
+        //     statusCode : 400,
+        //     message : "One or more of your requests failed create DBUser",
+        //     error : err
+        // }
+    // }
 }
 
 const sendUserCredentials = async (ctx, user)=>{

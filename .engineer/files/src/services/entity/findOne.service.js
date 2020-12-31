@@ -1,7 +1,6 @@
 {{#if options.log}}
 {{#each options.log.actions}}
 {{#if findOne}}
-
 {{@root.id}}FindOneLog= async (ctx, record)=>{
     const create = {
         data : {
@@ -41,6 +40,8 @@ const findOneService = async (ctx)=>{
             const logged = await {{@root.id}}FindOneLog(ctx, results[0])
         {{/if}}
         {{/each}}
+        
+
         
         return results[0] ? results[0] : results;
     }catch(err){

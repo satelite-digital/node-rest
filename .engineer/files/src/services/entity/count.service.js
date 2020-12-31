@@ -1,17 +1,3 @@
-{{#if options.softDelete}}
-const softDeleteFilter = (query)=>{
-    const filter = { {{options.softDelete}} : false }
-    if('where' in query){
-        if(!('{{options.softDelete}}' in query.where)){
-            Object.assign(query.where, filter)
-        }
-    }else{
-        query.where = filter
-    }
-    return query
-}
-{{/if}}
-
 const countService = async (ctx)=>{
 
         try{
@@ -21,7 +7,14 @@ const countService = async (ctx)=>{
             }
 
             {{#if options.softDelete}}
-            query = softDeleteFilter(query)
+            const softDeleteFilter = { {{options.softDelete}} : false }
+            if('where' in query){
+                if(!('{{options.softDelete}}' in query.where)){
+                    Object.assign(query.where, softDeleteFilter)
+                }
+            }else{
+                query.where = softDeleteFilter
+            }
             {{/if}}
 
             {{#if parents}}

@@ -5,7 +5,7 @@ const { signInService } = auth
 
 const signInController = async (req, res, next) => {
   const { ctx } = req
-  const { username, password } = req.body
+  const { email, password } = req.body
   const { db, auth } = ctx 
 
   try {
@@ -14,7 +14,7 @@ const signInController = async (req, res, next) => {
       db,
       auth,
       data : {
-          username,
+          email,
           password
       }
     })

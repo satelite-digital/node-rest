@@ -1,14 +1,14 @@
 const user = require('./user.json')
-const form = require('./form.json')
-const record = require('./record.json')
-const hook = require('./hook.json')
-// const folder = require('./folder.json')
+const organization = require('./organization.json')
+const user = require('./user.json')
+const app = require('./app.json')
+const app_log = require('./app_log.json')
 
 
 module.exports = [
     { id : "user", data : user },
-    { id : "form", data : form },
-    { id : "record", data : record },
-    { id : "hook", data : hook },
-    // { id : "folder", data : folder }
+    { id : "organization", data : organization },
+    { id : "user", data : user },
+    { id : "app", data : app },
+    { id : "app_log", data : app_log },
 ]

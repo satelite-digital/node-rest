@@ -7,6 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Organization {
+//   id    String    @default(uuid()) @id
+//   createdAt DateTime    @default(now()) 
+//   updatedAt DateTime    @default(now()) 
+//   title String
+//   description String?
+//   logo String?
+//   user User[]
+// }
+
 model Session {
   access_token          String
   createdAt             DateTime @default(now())
@@ -23,8 +33,6 @@ model Session {
   user                  User     @relation(fields: [userId], references: [id])
 }
 
-
-
 {{#each model}}
 model {{{this.name}}} {
     id    String    @default(uuid()) @id
@@ -33,7 +41,6 @@ model {{{this.name}}} {
     {{#if this.options.softDelete}} 
     deletedAt DateTime?
     {{this.options.softDelete}} Boolean  @default(false)
-    isDeleted Boolean @default(false)
     {{/if}}
   {{#each this.fields}}
     {{{this.id}}} {{{this.type}}}{{#if this.options.optional}}?{{/if}}  {{#if this.options.unique}}@unique{{/if}} {{#if this.options.default}} @default({{{this.options.default}}}) {{/if}}

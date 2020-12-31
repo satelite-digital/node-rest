@@ -12,21 +12,40 @@ const validatePassword = (user)=>{
     }
 }
 
+// const createAuthUser = async (ctx, user)=>{
+//     try{ 
+//         // Create cognito user
+//         let cognitoUser = {
+//             client : ctx.auth.client,
+//             username: user.email,
+//             password: user.password
+//         }
+//         const authUser = await ctx.auth.signup(cognitoUser)
+//         console.log(authUser)
+//         return authUser
+//     }catch(err){
+//         return {
+//             statusCode : 400,
+//             message : "One or more of your requests failed",
+//             error : err
+//         }
+//     }
+// }
+
 const createAuthUser = async (ctx, user)=>{
     try{ 
-        // Create cognito user
-        let cognitoUser = {
-            client : ctx.auth.client,
-            username: user.email,
-            password: user.password
+        // Create firebase user
+        let firebaseUser = {
+            user: user.email,
+            pass: user.password
         }
-        const authUser = await ctx.auth.signup(cognitoUser)
-        console.log(authUser)
+        const authUser = await ctx.auth.signUp(firebaseUser)
+        
         return authUser
     }catch(err){
         return {
             statusCode : 400,
-            message : "One or more of your requests failed",
+            message : "One or more of your requests failed createAuthUser",
             error : err
         }
     }
@@ -48,7 +67,7 @@ const createDBUser = async (ctx, user)=>{
     }catch(err){
         return {
             statusCode : 400,
-            message : "One or more of your requests failed",
+            message : "One or more of your requests failed create DBUser",
             error : err
         }
     }

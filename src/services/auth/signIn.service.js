@@ -1,30 +1,27 @@
 const signInService = async (ctx) => {
   
   
-  try {
-    console.log('signinservice@#$#$@#$#@$', ctx.db.user)
+  // try {
     
     // Get user to send data on login
-    let user = await ctx.db.user.findOne({
-      where : { email : ctx.data.username },
+    let user = await ctx.db.user.findMany({
+      where : { email : ctx.data.email },
       // include : { Profile : true }
     })
-    
-    // user = user[0]
 
+    console.log(user)
+    
+    user = user[0]
 
 
       // This is the user object for the Auth service (i.e. cognito)
     const authSignin = {
-      client : ctx.auth.client,
-      ...ctx.data
+      email : ctx.data.email,
+      password : ctx.data.password
     }
 
     // Sign into Auth service
-    console.log('pre signin', 'HOLAAA')
-    let result = await ctx.auth.signin(authSignin) 
-
-    console.log('post signin', result)
+    let result = await ctx.auth.signIn(authSignin) 
 
     // Invalidate previous sessions
     await ctx.db.session.updateMany({
@@ -38,9 +35,9 @@ const signInService = async (ctx) => {
     let session = await ctx.db.session.create(
       {
         data : {
-          refresh_token : result.RefreshToken,
-          access_token : result.AccessToken,
-          id_token : result.IdToken,
+          id_token : result.token,
+          access_token : '',
+          refresh_token : '',
           isAlive : true,
           user : {
             connect : { id : user.id }
@@ -53,9 +50,9 @@ const signInService = async (ctx) => {
     session.user = user;
     return session
 
-  } catch(e) {
-    return e
-  }
+  // } catch(e) {
+  //   return e
+  // }
 }
  
 module.exports = {
