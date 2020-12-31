@@ -14,7 +14,7 @@ const signInService = async (ctx) => {
     user = user[0]
 
 
-      // This is the user object for the Auth service (i.e. cognito)
+     // This is the user object for the Auth service (i.e. cognito)
     const authSignin = {
       email : ctx.data.email,
       password : ctx.data.password
@@ -22,6 +22,7 @@ const signInService = async (ctx) => {
 
     // Sign into Auth service
     let result = await ctx.auth.signIn(authSignin) 
+    console.log('signin', result)
 
     // Invalidate previous sessions
     await ctx.db.session.updateMany({
@@ -37,7 +38,7 @@ const signInService = async (ctx) => {
         data : {
           id_token : result.token,
           access_token : '',
-          refresh_token : '',
+          refresh_token : result.refresh_token,
           isAlive : true,
           user : {
             connect : { id : user.id }

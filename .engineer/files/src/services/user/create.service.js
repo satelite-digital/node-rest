@@ -36,8 +36,8 @@ const createAuthUser = async (ctx, user)=>{
     try{ 
         // Create firebase user
         let firebaseUser = {
-            user: user.email,
-            pass: user.password
+            email: user.email,
+            password: user.password
         }
         const authUser = await ctx.auth.signUp(firebaseUser)
         
@@ -53,7 +53,7 @@ const createAuthUser = async (ctx, user)=>{
 
 
 const createDBUser = async (ctx, user)=>{ 
-    try{
+    // try{
         DBUser = { ...user }
         delete DBUser.password
         let query = {
@@ -64,13 +64,13 @@ const createDBUser = async (ctx, user)=>{
         }
         const result = await ctx.db.user.create(query)
         return result
-    }catch(err){
-        return {
-            statusCode : 400,
-            message : "One or more of your requests failed create DBUser",
-            error : err
-        }
-    }
+    // }catch(err){
+    //     return {
+    //         statusCode : 400,
+    //         message : "One or more of your requests failed create DBUser",
+    //         error : err
+    //     }
+    // // }
 }
 
 const sendUserCredentials = async (ctx, user)=>{
@@ -98,7 +98,7 @@ const sendUserCredentials = async (ctx, user)=>{
 
 
 const createService = async (ctx)=>{
-    try{
+    // try{
         let created = []
         if(!Array.isArray(ctx.data)){
             ctx.data = [ ctx.data ];
@@ -128,10 +128,10 @@ const createService = async (ctx)=>{
 
         return created
 
-    }catch(err){
+    // }catch(err){
         
-        throw new Error(err)
-    }
+    //     throw new Error(err)
+    // }
 
 }
 
